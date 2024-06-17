@@ -1,0 +1,33 @@
+:root {
+  --Gray-1000: rgba(33, 33, 33, 1);
+  --Theme-white: rgba(255, 255, 255, 1);
+  --Background: rgb(245, 245, 245);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--Background);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Ensure cross-browser compatibility */
+input[type='number'] {
+  appearance: textfield;
+}

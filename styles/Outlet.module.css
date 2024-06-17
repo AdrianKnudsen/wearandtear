@@ -1,0 +1,10 @@
+.outletPage {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.h1 {
+  font-family: var(--josefin-font);
+}
