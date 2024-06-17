@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { fetchMensClothingItems } from "@/lib/clothingLogic";
 import { urlFor } from "../../sanity";
-import styles from "@/styles/men.module.css";
+import styles from "@/styles/Men.module.css";
 
 export const revalidate = 10;
 
