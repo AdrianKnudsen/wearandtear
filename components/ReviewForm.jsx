@@ -1,7 +1,4 @@
-"use client";
-
 import React, { useState, useRef } from "react";
-import client from "@/sanity";
 import styles from "@/styles/ReviewForm.module.css";
 
 const ReviewForm = ({ itemId, setReviews }) => {
@@ -31,24 +28,26 @@ const ReviewForm = ({ itemId, setReviews }) => {
       const createdReview = await response.json();
       console.log("Created review:", createdReview);
 
-      // Reset form fields
       setName("");
       setMessage("");
       setRating(5);
 
       // Fetch updated reviews
-      const updatedReviews = await client.fetch(
-        `*[_type == "review" && item._ref == $itemId] | order(date desc)`,
-        { itemId }
-      );
+      const updatedReviews = await fetchReviews(itemId);
       setReviews(updatedReviews);
 
       // Hide the form after submission
       setFormVisible(false);
     } catch (error) {
       setError("Failed to submit review. Please try again.");
-      console.error(error);
+      console.error("Error submitting review:", error);
     }
+  };
+
+  const fetchReviews = async (itemId) => {
+    const response = await fetch(`/api/reviews?itemId=${itemId}`);
+    const reviews = await response.json();
+    return reviews;
   };
 
   const toggleFormVisibility = () => {
