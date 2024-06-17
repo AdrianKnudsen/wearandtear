@@ -1,3 +1,4 @@
+// components/ReviewForm.jsx
 import React, { useState, useRef } from "react";
 import styles from "@/styles/ReviewForm.module.css";
 
@@ -28,6 +29,7 @@ const ReviewForm = ({ itemId, setReviews }) => {
       const createdReview = await response.json();
       console.log("Created review:", createdReview);
 
+      // Reset form fields
       setName("");
       setMessage("");
       setRating(5);
@@ -45,9 +47,17 @@ const ReviewForm = ({ itemId, setReviews }) => {
   };
 
   const fetchReviews = async (itemId) => {
-    const response = await fetch(`/api/reviews?itemId=${itemId}`);
-    const reviews = await response.json();
-    return reviews;
+    try {
+      const response = await fetch(`/api/reviews?itemId=${itemId}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch reviews");
+      }
+      const reviews = await response.json();
+      return reviews;
+    } catch (error) {
+      console.error("Error fetching reviews:", error);
+      return [];
+    }
   };
 
   const toggleFormVisibility = () => {
