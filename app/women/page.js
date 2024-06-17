@@ -1,14 +1,14 @@
-import React from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { fetchWomensClothingItems } from '@/lib/clothingLogic'
-import { urlFor } from '@/sanity'
-import styles from '@/styles/men.module.css'
+import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { fetchWomensClothingItems } from "@/lib/clothingLogic";
+import { urlFor } from "@/sanity";
+import styles from "@/styles/men.module.css";
 
-export const revalidate = 10
+export const revalidate = 10;
 
 export default async function Women() {
-  const items = await fetchWomensClothingItems()
+  const items = await fetchWomensClothingItems();
 
   return (
     <div className={styles.container}>
@@ -17,7 +17,7 @@ export default async function Women() {
         <ul className={styles.grid}>
           {items.map((item) => {
             const imageUrl =
-              urlFor(item.image)?.width(400).url() || '/fallback-image.jpg'
+              urlFor(item.image)?.width(400).url() || "/fallback-image.jpg";
             return (
               <li key={item._id} className={styles.item}>
                 <Link
@@ -38,10 +38,10 @@ export default async function Women() {
                 </Link>
                 <p className={styles.p}>{item.description}</p>
               </li>
-            )
+            );
           })}
         </ul>
       </main>
     </div>
-  )
+  );
 }
