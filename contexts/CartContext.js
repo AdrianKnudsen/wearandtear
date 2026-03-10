@@ -36,14 +36,20 @@ export const CartProvider = ({ children }) => {
     })
   }
 
-  const removeFromCart = (itemId) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item._id !== itemId))
+  const removeFromCart = (itemId, selectedSize) => {
+    setCartItems((prevItems) =>
+      prevItems.filter(
+        (item) => !(item._id === itemId && item.selectedSize === selectedSize),
+      ),
+    )
   }
 
-  const updateQuantity = (itemId, quantity) => {
+  const updateQuantity = (itemId, selectedSize, quantity) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
-        item._id === itemId ? { ...item, quantity } : item,
+        item._id === itemId && item.selectedSize === selectedSize
+          ? { ...item, quantity }
+          : item,
       ),
     )
   }

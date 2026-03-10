@@ -7,14 +7,12 @@ import { urlFor } from "@/sanity";
 import styles from "@/styles/Deals.module.css";
 
 async function getData() {
-  const mensClothingItems = await client.fetch(
-    `*[_type == "mensClothingItem"]{_id, name, image, slug, price, originalPrice, "type": "men"}`
+  return client.fetch(
+    `*[_type in ["mensClothingItem", "womensClothingItem"]]{
+      _id, name, image, slug, price, originalPrice,
+      "type": select(_type == "mensClothingItem" => "men", "women")
+    }`,
   );
-  const womensClothingItems = await client.fetch(
-    `*[_type == "womensClothingItem"]{_id, name, image, slug, price, originalPrice, "type": "women"}`
-  );
-
-  return [...mensClothingItems, ...womensClothingItems];
 }
 
 export default async function Deals() {
@@ -23,7 +21,7 @@ export default async function Deals() {
     <>
       <div className={styles.dealsComp}>
         <h2 className={styles.h2}>Best Deals</h2>
-        <div className={styles.carousel}>
+        <ul className={styles.carousel}>
           {items.map((item) => (
             <li key={item._id} className={styles.item}>
               <Link
@@ -54,7 +52,7 @@ export default async function Deals() {
               </div>
             </li>
           ))}
-        </div>
+        </ul>
         <button className={styles.btn}>View All</button>
       </div>
     </>

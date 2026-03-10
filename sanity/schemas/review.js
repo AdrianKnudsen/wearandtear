@@ -24,6 +24,12 @@ const review = {
       title: 'Date',
       type: 'datetime',
     },
+    {
+      name: 'item',
+      title: 'Item',
+      type: 'reference',
+      to: [{ type: 'mensClothingItem' }, { type: 'womensClothingItem' }],
+    },
   ],
 }
 

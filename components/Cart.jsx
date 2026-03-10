@@ -12,9 +12,9 @@ const Cart = () => {
     0
   );
 
-  const handleQuantityChange = (itemId, newQuantity) => {
+  const handleQuantityChange = (itemId, selectedSize, newQuantity) => {
     if (newQuantity > 0) {
-      updateQuantity(itemId, newQuantity);
+      updateQuantity(itemId, selectedSize, newQuantity);
     }
   };
 
@@ -32,7 +32,7 @@ const Cart = () => {
         ) : (
           <ul className={styles.items}>
             {cartItems.map((item) => (
-              <li key={item._id} className={styles.item}>
+              <li key={`${item._id}-${item.selectedSize}`} className={styles.item}>
                 <Image
                   src={urlFor(item.image)
                     .width(100)
@@ -53,7 +53,7 @@ const Cart = () => {
                     <button
                       className={styles.quantityButton}
                       onClick={() =>
-                        handleQuantityChange(item._id, item.quantity - 1)
+                        handleQuantityChange(item._id, item.selectedSize, item.quantity - 1)
                       }
                     >
                       -
@@ -62,7 +62,7 @@ const Cart = () => {
                     <button
                       className={styles.quantityButton2}
                       onClick={() =>
-                        handleQuantityChange(item._id, item.quantity + 1)
+                        handleQuantityChange(item._id, item.selectedSize, item.quantity + 1)
                       }
                     >
                       +
@@ -73,7 +73,7 @@ const Cart = () => {
                   </div>
                   <button
                     className={styles.deleteButton}
-                    onClick={() => removeFromCart(item._id)}
+                    onClick={() => removeFromCart(item._id, item.selectedSize)}
                   >
                     <Image
                       src="/svg/trash.svg"

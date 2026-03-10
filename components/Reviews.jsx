@@ -1,23 +1,9 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
-import client from '@/sanity'
+import React from 'react'
 import styles from '@/styles/Reviews.module.css'
 
-const Reviews = ({ itemId }) => {
-  const [reviews, setReviews] = useState([])
-
-  useEffect(() => {
-    const fetchReviews = async () => {
-      const reviewsData = await client.fetch(
-        `*[_type == "review" && item._ref == $itemId] | order(date desc)`,
-        { itemId },
-      )
-      setReviews(reviewsData)
-    }
-
-    fetchReviews()
-  }, [itemId])
+const Reviews = ({ reviews = [] }) => {
 
   const calculateAverageRating = () => {
     if (reviews.length === 0) return 0

@@ -7,14 +7,12 @@ import Image from 'next/image'
 export const revalidate = 10
 
 async function getData() {
-  const mensClothingItems = await client.fetch(
-    `*[_type == "mensClothingItem"]{_id, name, image, slug, price, description, "type": "men"}`,
+  return client.fetch(
+    `*[_type in ["mensClothingItem", "womensClothingItem"]]{
+      _id, name, image, slug, price, description,
+      "type": select(_type == "mensClothingItem" => "men", "women")
+    }`,
   )
-  const womensClothingItems = await client.fetch(
-    `*[_type == "womensClothingItem"]{_id, name, image, slug, price, description, "type": "women"}`,
-  )
-
-  return [...mensClothingItems, ...womensClothingItems]
 }
 
 export default async function Collection() {

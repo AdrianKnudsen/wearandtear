@@ -35,7 +35,7 @@ const ClothingItemClient = ({ item }) => {
   return (
     <>
       <ProductItem item={item} reviews={reviews} />
-      <Reviews itemId={item._id} />
+      <Reviews reviews={reviews} />
       <ReviewForm itemId={item._id} setReviews={setReviews} />
     </>
   )
